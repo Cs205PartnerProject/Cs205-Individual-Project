@@ -4,6 +4,7 @@ class Team:
     name = ''
     # Creating the list that will hold the player objects
     teamList = []
+    # ToDo figure out how to implement an Owner object as a part of this class
 
     # ToDo implement error handling to the constructor
     def __init__(self,listOfTeammates,n):
@@ -23,12 +24,24 @@ class Team:
     # fire player searches the list for the parameter player and removes them
     # Todo implement error handling if the Player is not on the team
     def firePlayer(self,Player):
-        indexOfPlayer = list.index(Player)
-        list.pop(indexOfPlayer)
+        indexOfPlayer = self.teamList.index(Player)
+        self.teamList.pop(indexOfPlayer)
     # the fireOwner method fires the owner of the team and replaces him with
     # a new owner
-    def fireOwner(self,nO):
-        self.
+    # ToDo implement the below method when i figure out a solution to the above problem.
+    #def fireOwner(self,nO):
+
+    # the printTeam method prints out all information on the team
+    def printTeam(self):
+        # Todo implement the printing of the owner information
+
+        # Printing of Team name
+        print("Name of team:",self.name,'\n')
+        # Printing the team players
+        for i in self.teamList:
+            print("Player:",i,"is",self.teamList[i],'\n')
+
+
 
 
 
