@@ -2,8 +2,7 @@ import Owner
 import Player
 # I considered implementing an alternate constructor that doesn't take a list
 # of players.
-# Todo Test the see if the Team methods work as expected, particularly focus on the fireOwner, printTeam methods, as these use the teamOwner
-# Todo variable.
+# Todo Test the see if the Team methods work as expected, particularly focus on the fireOwner, printTeam methods, as these use the teamOwner variable.
 class Team:
     name = ''
     # Creating the list that will hold the player objects
@@ -12,12 +11,15 @@ class Team:
     teamOwner = Owner
     # ToDo implement error handling to the constructor
     def __init__(self,listOfTeammates,n,O = Owner):
-        self.name = n
+        if(len(listOfTeammates) != 0):
+            self.name = n
         # Populating the list of players with the objects in the parameter list
-        for i in listOfTeammates:
-            self.teamList.append(i)
+            for i in listOfTeammates:
+                self.teamList.append(i)
         # Taking information from the owner parameter to the Owner member of this class
-        self.teamOwner.Owner(O.Owner.name,O.Owner.team)
+            self.teamOwner.Owner(O.Owner.name,O.Owner.team)
+        if(len(listOfTeammates) == 0):
+            print("You canno't start a team with 0 players\n")
     # the getPlayers method will return all players found in the list
     def getPlayer(self):
         return self.teamList
