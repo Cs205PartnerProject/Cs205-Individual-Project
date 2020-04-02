@@ -55,10 +55,33 @@ class Test_Owner(unittest.TestCase):
     def tearDown(self) -> None:
         self.newOwner = None
 
+# Still need to go through and make sure all of these test cases work.
 class Test_Team(unittest.TestCase):
     def setUp(self) -> None:
-        self.newTeam = Team
-
+        brandon = Player("Brandon","Ravens",8)
+        nick = Player("Nick","Ravens",9)
+        hunter = Player("Hunter","Ravens",10)
+        teamMates=[brandon,nick,hunter]
+        owner = Owner("Jason hibbeler", "Ravens")
+        self.newTeam = Team(teamMates,"Ravens",owner)
+    def test_playerName(self):
+        self.assertEqual(self.newTeam.teamList[1],"Brandon")
+        maxx = Player("Maxx","Ravens",98)
+        self.newTeam.newPlayer(maxx)
+        self.assertEqual(self.newTeam.teamList[3],maxx)
+    def test_owner(self):
+        testOwner = Owner("Jason hibbeler", "Ravens")
+        self.assertEqual(self.newTeam.teamOwner,testOwner)
+    def test_firePlayer(self):
+        brandon = Player("Brandon", "Ravens", 8)
+        nick = Player("Nick", "Ravens", 9)
+        hunter = Player("Hunter", "Ravens", 10)
+        testList = [brandon,nick,hunter]
+        self.assertEqual(self.newTeam.teamList,testList)
+        test_list2 = [brandon,nick]
+        self.test_firePlayer(hunter)
+        self.assertEqual(self.newTeam.teamList,test_list2)
+    # Still need to test fireOwner and find Player
 
 
 if __name__ == '__main__':

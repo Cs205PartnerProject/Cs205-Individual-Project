@@ -10,9 +10,9 @@ class Team:
     teamOwner = Owner  # I believe this is how we accomplish having an Owner object as a member of out Team class
 
     # ToDo implement error handling to the constructor
-    def __init__(self, listOfTeammates, n, O=Owner):
+    def __init__(self, listOfTeammates, name, O=Owner):
         if len(listOfTeammates) != 0:
-            self.name = n
+            self.name = name
             # Populating the list of players with the objects in the parameter list
             for i in listOfTeammates:
                 self.teamList.append(i)
@@ -36,12 +36,16 @@ class Team:
         self.teamList.append(Player)
 
     # fire player searches the list for the parameter player and removes them
-    # Todo implement error handling if the Player is not on the team
     def firePlayer(self, Player=Player):
-        indexOfPlayer = self.teamList.index(Player)
-        self.teamList.pop(indexOfPlayer)
-        # Change the team of the Player parameter to an empty string
-        Player.Player.team = ''
+        # If the below statement fails then no changes will be made to the player roster
+        try:
+            indexOfPlayer = self.teamList.index(Player)
+            self.teamList.pop(indexOfPlayer)
+            # Change the team of the Player parameter to an empty string
+            Player.Player.team = ''
+        except ValueError:
+            print("Player not in list\n")
+
 
     # the fireOwner method fires the owner of the team and replaces him with
     # a new owner
