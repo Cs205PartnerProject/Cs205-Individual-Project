@@ -35,7 +35,7 @@ class Player:
     # isTeammate checks to see if the
     # parameter player and this team are on the same team
     # Todo implement error handling for the below function
-    def isTeammate(self,otherPlayer):
+    def isTeammate(self, otherPlayer):
         if otherPlayer.team == self.team:
             return True
         else:
