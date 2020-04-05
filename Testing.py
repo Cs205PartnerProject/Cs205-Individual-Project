@@ -31,7 +31,9 @@ class Test_Player(unittest.TestCase):
     def test_isTeammate(self):
         print("Entering test_isTeammate in Test_Player")
         testPlayer = Player("Brandon", "Ravens", 8)
+        testPlayer2 = Player("Caleb", "patriots", 89)
         self.assertFalse(testPlayer.isTeammate(self.newPlayer))
+        self.assertTrue(testPlayer2.isTeammate(self.newPlayer))
 
 
     def tearDown(self) -> None:
