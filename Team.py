@@ -7,61 +7,72 @@ from Player import Player
 class Team:
     name = ''
     teamList = []  # Creating the list that will hold the player objects
-    teamOwner = Owner('', '')  # I believe this is how we accomplish having an Owner object as a member of out Team class
+    teamOwner = Owner  # I believe this is how we accomplish having an Owner object as a member of out Team class
 
     # ToDo implement error handling to the constructor
-    def __init__(self, listOfTeammates, n, owner):
+    def __init__(self, listOfTeammates, name, O=Owner):
         if len(listOfTeammates) != 0:
-            self.name = n
+            self.name = name
             # Populating the list of players with the objects in the parameter list
             for i in listOfTeammates:
-                self.teamList.append(i)
+                in_list = False
+                for j in self.teamList:
+                    # print("i.name=", i.name, "\n", "j.name=", j.name)
+                    if i.name == j.name:
+                        in_list = True
+                if not in_list:
+                    self.teamList.append(i)
 
             # Taking information from the owner parameter to the Owner member of this class
-            self.teamOwner = owner
+            self.teamOwner.name = O.name
+            self.teamOwner.team = O.team
+
+
 
         if len(listOfTeammates) == 0:
             print("You cannot start a team with 0 players\n")
 
     # the getPlayers method will return all players found in the list
-    def getPlayers(self):
+    def getPlayer(self):
         return self.teamList
 
     # the getName method will return the name of the team
     def getName(self):
         return self.name
 
-    def getOwner(self):
-        return self.teamOwner
-
     # the newPlayer method will add a new player to the teamlist
-    def newPlayer(self, player):
-        self.teamList.append(player)
+    def newPlayer(self, Player=Player):
+        self.teamList.append(Player)
 
     # fire player searches the list for the parameter player and removes them
-    # Todo implement error handling if the Player is not on the team
-    def firePlayer(self, player):
-        self.teamList.remove(player)
-        # Change the team of the Player parameter to an empty string
-        player.changeTeam('')
+    def firePlayer(self, Player=Player):
+        # If the below statement fails then no changes will be made to the player roster
+        try:
+            indexOfPlayer = self.teamList.index(Player)
+            self.teamList.pop(indexOfPlayer)
+            # Change the team of the Player parameter to an empty string
+            Player.Player.team = ''
+        except ValueError:
+            print("Player not in list\n")
 
-    # the fireOwner method fires the owner of the team
-    def fireOwner(self):
+
+    # the fireOwner method fires the owner of the team and replaces him with
+    # a new owner
+    def fireOwner(self, nO=Owner):
         # Change the Owners team name to the empty string
-        self.teamOwner = None
+        self.teamOwner.Owner.team = nO
+        # Setting self.teamOwner equal to the the new Owner parameter.
 
-    def hireOwner(self, owner):
-        self.teamOwner = owner
 
     # the printTeam method prints out all information on the team
     def printTeam(self):
         # having an Owner object be associated with the team.
-        print("The owner of the team is:", self.teamOwner.name)
+        print("The owner of the team is:", self.teamOwner.Owner.name, '\n')
         # Printing of Team name
         print("Name of team:", self.name, '\n')
         # Printing the team players
-        for i in range(len(self.getPlayers())):
-            print("Player:", i, "is", self.teamList[i].getName(), 'for the', self.teamList[i].getTeam())
+        for i in self.teamList:
+            print("Player:", i, "is", self.teamList[i], '\n')
 
     # The findPlayer method was implemented to better test our other methods
     # The findPlayer takes a Player as a parameter and returns a 0 if they are in the team list
