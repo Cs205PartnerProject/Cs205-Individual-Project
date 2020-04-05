@@ -50,9 +50,34 @@ class TestOwner(unittest.TestCase):
     def tearDown(self) -> None:
         self.newOwner = None
 
+
 class TestTeam(unittest.TestCase):
     def setUp(self) -> None:
-        self.newTeam = Team
+        self.player1 = Player("nick", "broncos", 11)
+        self.player2 = Player("john", "broncos", 63)
+        self.player3 = Player("tom", "broncos", 44)
+        self.playerList = [self.player1, self.player2, self.player3]
+        self.owner = Owner("jack", "broncos")
+        self.newTeam = Team(self.playerList, "broncos", self.owner)
+
+    def testPlayers(self):
+        self.assertEqual(self.newTeam.getPlayers(), [self.player1, self.player2, self.player3])
+        self.newTeam.firePlayer(self.player1)
+        self.assertEqual(self.newTeam.getPlayers(), [self.player2, self.player3])
+        self.assertEqual(self.newTeam.findPlayer(self.player2), 0)
+        self.assertEqual(self.newTeam.findPlayer(self.player1), -1)
+        self.newTeam.printTeam()
+        self.assertEqual(self.newTeam.getPlayers(), self.playerList)
+
+    # def testOwner(self):
+    #     self.assertEqual(self.newTeam.getOwner(), "jack")
+    #     self.newTeam.fireOwner()
+    #     self.assertEqual(self.newTeam.getOwner(), None)
+    #
+    #
+
+
+
 
 
 
